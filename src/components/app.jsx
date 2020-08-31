@@ -6,15 +6,15 @@ import Gif from './gif';
 import GifList from './gif_list';
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
       gifs: [],
-      selectedGifId: "hQLXtj9RnHuguqwzWN" 
+      selectedGifId: null
     };
   }
-  
+
   selectGif = (id) => {
     this.setState({
       selectedGifId: id
@@ -34,21 +34,21 @@ class App extends Component {
   }
 
   render() {
+    const { selectedGifId, gifs } = this.state;
     return (
       <div>
-        <div className='left-scene'>
+        <div className="left-scene">
           <SearchBar searchFunction={this.search} />
-          <div className='selected-gif'> 
-            <Gif id={this.state.selectedGifId} />
+          <div className="selected-gif">
+            <Gif id={selectedGifId} />
           </div>
         </div>
-        <div className='right-scene'>
-          <GifList gifs={this.state.gifs} selectGif={this.selectGif} />
+        <div className="right-scene">
+          <GifList gifs={gifs} selectGif={this.selectGif} />
         </div>
       </div>
     );
   }
 }
 
-export default App; 
-  
+export default App;

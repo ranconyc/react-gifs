@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 
 class Gif extends Component {
+  shouldComponentUpdate(nextProps) {
+    const { id } = this.props;
+    // Don't call render if props.id didn't cahnced
+    return nextProps.id !== id;
+  }
+
   handleClick = () => {
-    if (this.props.selectGif) {
-      this.props.selectGif(this.props.id);
+    const { selectGif, id } = this.props;
+    if (selectGif) {
+      selectGif(id);
     }
   }
 
-  render() { 
-    const src = `https://media4.giphy.com/media/${this.props.id}/200.gif`;
-    return ( 
-      <img src={src} className='gif' onClick={this.handleClick} />
+  render() {
+    const { id } = this.props;
+    if (!id) {
+      return null;
+    }
+    const src = `https://media4.giphy.com/media/${id}/200.gif`;
+    return (
+      <img src={src} className="gif" onClick={this.handleClick} alt="gif" />
     );
   }
 }
